@@ -22,6 +22,7 @@ object PermissionsProcessor {
         expressions.forEach { expr ->
             PERMISSION_ANNOTATIONS_CLASSES.forEach { routeClass ->
                 expr.getAnnotations(context, routeClass).forEach { annotation ->
+                    println("PERMISSION PROCESSOR $routeClass")
                     when (routeClass) {
                         S3Bucket::class -> {
                             val id = annotation.getValue(context, S3Bucket::bucket)!!

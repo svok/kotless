@@ -29,12 +29,14 @@ abstract class Parser(val processors: Set<Processor<*>>) {
 
         val context = ProcessorContext(jar, config, lambda)
 
+        println("PROCESSING")
         var newExecuted = true
         while (newExecuted) {
             newExecuted = false
             for (processor in processors) {
                 if (!processor.hasRan(context) && processor.mayRun(context)) {
                     newExecuted = true
+                    println("PROCESSING.RUN")
                     processor.run(ktFiles, binding, context)
                 }
             }

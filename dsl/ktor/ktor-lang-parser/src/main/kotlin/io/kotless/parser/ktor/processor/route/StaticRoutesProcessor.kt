@@ -52,7 +52,6 @@ internal object StaticRoutesProcessor : SubTypesProcessor<Unit>() {
                             }
                             "io.ktor.http.content.files" -> {
                                 val folder = File(base, element.getArgument("folder", binding).asString(binding))
-
                                 addStaticFolder(folder, outer, context)
                             }
                         }
@@ -68,7 +67,8 @@ internal object StaticRoutesProcessor : SubTypesProcessor<Unit>() {
 
         for (file in allFiles) {
             if (file.isDirectory) {
-                addStaticFolder(file, URIPath(outer, file.name), context)
+                val path = URIPath(outer, file.name)
+                addStaticFolder(file, path, context)
             } else {
                 val remotePath = file.toRelativeString(folder).toURIPath()
                 val path = URIPath(outer, remotePath)
